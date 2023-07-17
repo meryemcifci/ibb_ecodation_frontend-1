@@ -751,7 +751,7 @@ let callbackFunctionComputer = () => {
     }
     arrayInComputerObject({ computerName: "computer 6", price: 600 }, arrayInComputerName)
 }
-callbackFunctionComputer();
+//callbackFunctionComputer();
 
 
 
@@ -788,17 +788,129 @@ let promiseFunctionComputer = () => {
         .then((response) => { console.log(response); })
         .catch((err) => { console.error(err); });
 }
-promiseFunctionComputer();
+//promiseFunctionComputer();
 
 
 ////////////////////////////////////////////////////////
-// object
+// Json nedir ? XML nedir arasındaki fark ?
+
+let objectTutorials = () => {
+
+    // object
+    const personObj = {
+        "name": "Hamit",
+        surname: "Mızrak",
+        "number": 44,
+        "isLogin": true,
+        "software": ["Html5", "css3", "js"],
+        fullName: function () {
+            return this.name + " " + this.surname;
+        }
+    };
+    console.log(personObj);
+
+    // variable
+    console.log(personObj.name);
+    console.log(personObj.surname);
+
+    // variable nested
+    console.log(personObj["name"]);
+    console.log(personObj["surname"]);
+
+    // Array
+    console.log(personObj.software[0]);
+
+    const objectToString = JSON.stringify(personObj);
+    console.log(objectToString);
+
+    const stringToObject = JSON.parse(objectToString);
+    console.log(stringToObject.name);
+
+    // Object Variable
+    personObj.language = "english";
+    console.log(personObj.language);
+
+    // function callback
+    console.log(personObj.fullName());
+}
+//objectTutorials();
+
+// object constructor
+let objectConstructor = () => {
+    let PersonConstructor = function (name, surname) {
+        this.name = name;
+        this.surname = surname;
+        console.log(this);
+    }
+
+    let personResult = new PersonConstructor("Hamit", "Mızrak");
+    console.log(personResult.name);
+}
+//objectConstructor();
+
+////////////////////////////////////////////
+// call, apply, bind
+// anonymous function ile arrow function arasındaki farka bakmanızı istiyoruz.
+
+let noParameterCallApplyBind = () => {
+
+    // function
+    let functionOtherObject = function () {
+        document.writeln(`Parametresiz Function: ${this.adi}<br/>`)
+    };
+
+    // object
+    let objectData = {
+        "adi": "Spora Gidiyorum"
+    };
+
+    functionOtherObject.call(objectData);
+    functionOtherObject.apply(objectData);
+    let deneme = functionOtherObject.bind(objectData);
+    deneme();
+}
+//noParameterCallApplyBind();
+//document.writeln(`<br/>`)
+
+let parameterCallApplyBind = () => {
+
+    // function
+    let functionOtherObject = function (surname) {
+        document.writeln(`Parametresiz Function: ${this.adi} => ${surname}<br/>`)
+    };
+
+    // object
+    let objectData = {
+        "adi": "Spora Gidiyorum"
+    };
+
+    functionOtherObject.call(objectData, "Mızrak");
+    functionOtherObject.apply(objectData, ["Mızrak"]);
+    let deneme = functionOtherObject.bind(objectData, "Mızrak");
+    deneme();
+}
+//parameterCallApplyBind();
+
+////////////////////////////////////////////////////////
 // event
+let eventFunction = () => {
+    alert("deneme")
+}
+
+////////////////////////////////////////////////////////
 // listener
+
+////////////////////////////////////////////////////////
 // dom
-// localStorage
-// KDV hesaplaması
+// localStorage (Bireysel)
+// jQuery
+
+////////////////////////////////////////////////////////
 // jquery ajax GET/POST
+// KDV hesaplaması: JS
+////////////////////////////////////////////////////////
+// REACT
+
 
 
 
