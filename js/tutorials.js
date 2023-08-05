@@ -898,18 +898,273 @@ let eventFunction = () => {
 }
 
 ////////////////////////////////////////////////////////
-// listener
+// dom
+let newDataDate = () => {
+    // Override: Ezmek
+    // alert("dom");
+    // let now = document.getElementById("text_data");
+    // HTML
+    // now.innerHTML ="<b><i><mark>"+ new Date().getFullYear(); +"</mark></i></b>";
+    // now.innerHTML = `<b><i><mark> ${new Date().getFullYear()} </mark></i></b>`;
+
+    // QUERYSELECTOR id #   class .
+    let now = document.querySelector("#text_data");
+
+    // TEXT
+    // now.innerText = `<b><i><mark> ${new Date().getFullYear()} </mark></i></b>`;
+    now.innerText = `${new Date().getFullYear()}`;
+
+    // CSS
+    now.style.color = "yellow";
+    now.style.backgroundColor = "black";
+    now.style.padding = "5rem";
+}
+
+let domData2 = () => {
+    //alert("çalıştı");
+
+    // ID
+    //let domUserData=document.getElementById("dom_id").innerText="ID";
+
+    // Class
+    //let domUserData=document.getElementsByClassName("dom_class")[0].innerText="class Data";
+
+    // Tag name
+    // let domUserData=document.getElementsByTagName("p")[1].innerText="class Data";
+}
+
+// paragrag_id2 adından bir paragraf olsun bu paragrafa kullanıcı mouse ile tıkladığında
+// aşağıda <span id="special_id"></span> içine tıklandı veya paragraf üstüne gelindi.
 
 ////////////////////////////////////////////////////////
-// dom
+
+// Butona tıkladığımızda kullanıcı soru sorsun
+// Farklı bir sayfaya gitmek ister misiniz ?
+// evet farklı bir sayfaya redirect 
+// değilse alert versin 
+
+let outSite = () => {
+    //alert("deneme");
+    let userInformation =
+        window.confirm("Farklı bir sayfaya gitmek ister misiniz ?")
+            ? window.location = "https://www.ecodation.com"
+            : window.alert("Bu sayfada kalındı");
+}
+
+
+// listener
+//  Ödev: Kullanıcı bu paragrafa kaç kere tıkladı ?
+let userListener = () => {
+    let listenerParag = document.getElementById("parag_list");
+    listenerParag.addEventListener("click", function (e) {
+        //alert(e.preventDefault+" "+e.target);
+        //document.getElementById("log_admin").innerHTML="takip edildi";
+        $("#log_admin").html("takip edildi");
+    });
+}
+//userListener()
+
+////////////////////////////////////////////////////////
 // localStorage (Bireysel)
+// veriler bizim için önemlidir.
+// Verileri saklarız. Database, Browser
+
+let localStorageData = () => {
+
+    const adi = localStorage.setItem("name", prompt("adınız giriniz"));
+    const soyadi = localStorage.setItem("surname", "Mızrak");
+    console.log(localStorage);
+
+    const getAdi = localStorage.getItem("name");
+    alert(getAdi);
+
+    // RemoveItem
+    //localStorage.removeItem("name");
+
+    // Clear
+    //localStorage.clear();
+}
+//localStorageData()
+
+////////////////////////////////////////////////////////
 // jQuery
 
 ////////////////////////////////////////////////////////
-// jquery ajax GET/POST
-// KDV hesaplaması: JS
+// https://www.toptal.com/developers/keycode
+// jquery hangi tuşa bastım bana söylesin.
+
+let userJqueryKey = () => {
+
+    // Jquery hazırlanması
+    $(document).ready(function () {
+        $(document).keydown(function (userButton) {
+            console.log(userButton);
+            console.log(userButton.keyCode);
+            console.log(typeof userButton.keyCode);
+            // keyCode (13) => ENTER
+            // https://www.toptal.com/developers/keycode
+
+            // Browser sen bir şey yapma, yaparsam ben yaparım.
+            userButton.preventDefault();
+
+            // ENTER BASILDI
+            //if(userButton.ctrlKey){}  // Ctrl basılarak mı tıklanmış
+            if (userButton.keyCode == 13) { //keyCode: Her karakterin sayısıdır.
+                alert("ENTER Bastınız.")
+                console.log("ENTER Bastınız.")
+            }
+
+        }) // end keydown
+    }); // end document ready
+
+}; //end userJqueryKey
+//userJqueryKey()
+
+////////////////////////////////////////////////////////
+// V.K.I (LocalStorage); acronym
+// Vucüt Kitle Index (VKI) 
+// Kullanıcıdan alınan Kilo ve Boy verileri formda inputtan aldıktan sonra
+// Formül: Kilo/((Boy)/100)^2
+// eğer bu formülde;
+// 18>X     çıkarsa: Düşük Kilolu (Doktora gidiniz)
+// 18<=X<24 çıkarsa: Normal Kilolu
+// 24<=X<29 çıkarsa: Fazla Kilolu
+// 29<=X<32 çıkarsa: Obez Kilolu
+// X>=32    çıkarsa: Aşırı Obez Kilolu (Doktora gidiniz)
+
+// VKI Butonu olsun. bu  butona bastığımızda (modal) Form açılsın.
+// input: kilo
+// input: boy
+// submit button
+// NOT: Kilo(weight), Boy(height), formül sonucu(formulaResult) ve Sonuç(result) LocalStorage olarak saklansın.
+let vkiFormule = () => {
+    $(document).ready(function () {
+        // EVENT
+        $("#vki_submit_id").click(function (event) {
+
+            // 
+            event.preventDefault();
+
+            // Boy ve Kilo
+            let weight, height, vkiResult;
+
+            // Local Storage
+            let getLocalWeight, getLocalHeight, getLocalVkiNumberResult, getLocalVkiResult;
+
+            // KİLO
+            weight = jQuery.trim($("#weight_id").val());
+            // alert(weight);
+            // validation
+            // eğer input içinde değer varsa hata mesajı silinsin.
+            if (weight == "") {
+                $('#validation_weight').html("Kilosu boş geçilemez");
+            } else if (jQuery.isNumeric(weight) == false) {
+                // Kullanıcı Sayı girmezse sayı girmediniz hatasını versin (REGEX)
+                $('#validation_weight').html("Sayı girmelisiniz");
+            } else {
+                // LocalStorage => // NOT: Kilo(weight), Boy(height), formül sonucu(formulaResult) ve Sonuç(result) LocalStorage olarak saklansın.
+                localStorage.setItem("weight", weight);
+                console.log(localStorage);
+                getLocalWeight = localStorage.getItem("weight");
+                console.log(`Local Weight:  ${getLocalWeight}`);
+                //CAST NUMBER
+                getLocalWeight = Number(getLocalWeight);
+            }
+
+            // BOY DOM
+            height = jQuery.trim(document.getElementById("height_id").value);
+            //alert(height);
+            // validation
+            if (height == "") {
+                $('#validation_height').html("Boy boş geçilemez");
+            } else if ($.isNumeric(weight) == false) {
+                // Kullanıcı Sayı girmezse sayı girmediniz hatasını versin (REGEX)
+                $('#validation_weight').html("Sayı girmelisiniz");
+            } else {
+                // LocalStorage => // NOT: Kilo(weight), Boy(height), formül sonucu(formulaResult) ve Sonuç(result) LocalStorage olarak saklansın.
+                localStorage.setItem("height", height);
+                console.log(localStorage);
+                getLocalHeight = localStorage.getItem("height");
+                console.log(`Local Height:  ${getLocalHeight}`);
+                //CAST NUMBER
+                getLocalHeight = Number(getLocalHeight);
+            }
+            // eğer input içinde değer varsa hata mesajı silinsin.
+
+            // FORMULE
+            // Kullanıcıdan alınan Kilo ve Boy verileri formda inputtan aldıktan sonra
+            // Formül: Kilo/((Boy)/100)^2
+            vkiResult = Math.round(getLocalWeight / Math.pow((getLocalHeight / 100), 2));
+
+            // Local
+            localStorage.setItem("vki_number_result", vkiResult);
+            getLocalVkiNumberResult = localStorage.getItem("vki_number_result");
+
+
+            // eğer bu formülde;
+            // 18>X     çıkarsa: Düşük Kilolu (Doktora gidiniz)
+            // 18<=X<24 çıkarsa: Normal Kilolu
+            // 24<=X<29 çıkarsa: Fazla Kilolu
+            // 29<=X<32 çıkarsa: Obez Kilolu
+            // X>=32    çıkarsa: Aşırı Obez Kilolu (Doktora gidiniz)
+            // DISPLAY RESULT
+            //$('#result_number_id').html(getLocalVkiNumberResult).css("color","blue");
+
+            // switch-case
+            if (getLocalVkiNumberResult < 18) {
+                $("#result_vki_id").html(`<b><i>${getLocalVkiNumberResult}:Düşük Kilolu </i></b>`);
+                localStorage.setItem("vki_result", "düşük kilolu");
+            } else if (18 <= getLocalVkiNumberResult && getLocalVkiNumberResult < 24) {
+                $("#result_vki_id").html(`<b><i>${getLocalVkiNumberResult}:Normal Kilolu </i></b>`);
+                localStorage.setItem("vki_result", "Normal kilolu");
+            } else if (24 <= getLocalVkiNumberResult && getLocalVkiNumberResult < 29) {
+                $("#result_vki_id").html(`<b><i>${getLocalVkiNumberResult}:Fazla Kilolu </i></b>`);
+                localStorage.setItem("vki_result", "Fazla kilolu");
+            } else if (29 <= getLocalVkiNumberResult && getLocalVkiNumberResult < 32) {
+                $("#result_vki_id").html(`<b><i>${getLocalVkiNumberResult}:Obez Kilolu </i></b>`);
+                localStorage.setItem("vki_result", "Obez kilolu");
+            } else if (getLocalVkiNumberResult >= 32) {
+                $("#result_vki_id").html(`<b><i>${getLocalVkiNumberResult}:Aşırı Obez Kilolu (Doktora gidiniz) </i></b>`);
+                localStorage.setItem("vki_result", "Aşırı Obez kilolu");
+            } else {
+                $("#result_vki_id").html(`<b><i>${getLocalVkiNumberResult}:Sen insan değilsin :) </i></b>`);
+                localStorage.setItem("vki_result", "Sen insan değilsin");
+            }
+
+            // Local
+            getLocalVkiResult = localStorage.getItem("vki_result");
+
+            // Local Storage Temizle
+
+        }); // click
+    }) // end document ready
+};
+vkiFormule();
+
+
+// LocalStorage Cleaner
+let clearLocaleStorageData=()=>{
+    //alert("Silinecek")
+    if(window.confirm("Local Storage'ı silmek istediğinizden emin misiniz ?")){
+        localStorage.clear();
+       alert("silindi");
+    }else{
+        alert("Silinmedi !!!");
+    }
+}
+// $(function () {
+    //$("#vki_hesapla").on("click", function () {
+//}});
+
+
+
+////////////////////////////////////////////////////////
+// jquery ajax GET/POST (Backend: Java API, )
+// Dockerfile
+
 ////////////////////////////////////////////////////////
 // REACT
+// K.D.V hesaplaması: JS - ve React Yapılacak
 
 
 
